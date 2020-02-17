@@ -8,4 +8,12 @@
  *     pre-emptive
  */
 
-//TODO fill in content
+#include "../includes/scheduler_SRTF.h"
+
+bool Scheduler_SRTF::time_to_switch_processes(int tick_count, PCB &p) {
+	return false;
+}
+
+void Scheduler_SRTF::sort() {
+
+}
