@@ -12,12 +12,11 @@
 
 using namespace std;
 
-Stats::Stats(std::vector<PCB> &finished_vector) {
-	*vec = finished_vector;
-}
+//Initializes the values in the same way the scheduler header files do
+Stats::Stats(std::vector<PCB> &finished_vector) : vec(&finished_vector), av_wait_time(0), av_turnaround_time(0), av_response_time(0) {}
 
 void Stats::showAllProcessInfo() {
-	cout << vec->size();
+	//Prints out the process info, could be more organized with printf
 	for(int i = 0 ; i < vec->size() ; i++) {
 		cout << "Process " << vec->at(i).process_number
 				<< " " << "Required CPU time:" << vec->at(i).required_cpu_time
@@ -29,26 +28,26 @@ void Stats::showAllProcessInfo() {
 
 float Stats::get_av_response_time() {
 	int total = 0;
-	for(int i = 0 ; i < vec->size() ; i++) {
+	for(int i = 0 ; i < vec->size() ; i++) { //Gets total response time
 		total += vec->at(i).start_time - vec->at(i).arrival_time;
 	}
-	return (float)total / (float)(vec->size());
+	return (float)total / (float)(vec->size()); //Gets average response time
 }
 
 float Stats::get_av_turnaround_time() {
 	int total = 0;
-	for(int i = 0 ; i < vec->size() ; i++) {
+	for(int i = 0 ; i < vec->size() ; i++) { //Gets total turnaround time
 		total += vec->at(i).finish_time - vec->at(i).arrival_time;
 	}
-	return (float)total / (float)(vec->size());
+	return (float)total / (float)(vec->size()); //Gets average turnaround time
 }
 
 float Stats::get_av_wait_time() {
 	int total = 0;
-	for(int i = 0 ; i < vec->size() ; i++) {
+	for(int i = 0 ; i < vec->size() ; i++) { //Gets total wait time
 		total += vec->at(i).finish_time - vec->at(i).arrival_time - vec->at(i).required_cpu_time;
 	}
-	return (float)total / (float)(vec->size());
+	return (float)total / (float)(vec->size()); //Gets average wait time
 }
 
 void Stats::calcStats() {
